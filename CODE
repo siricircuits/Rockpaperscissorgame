@@ -1,0 +1,77 @@
+// Include necessary header files
+#include <stdio.h>    // For input/output operations
+#include <stdlib.h>   // For standard library functions
+#include <time.h>     // For time functions
+
+// Function to implement the game logic
+int game(char you, char computer)
+{
+    // If both the user and computer choose the same thing, it's a draw
+    if (you == computer)
+        return -1;
+
+    // If user's choice is stone and computer's choice is paper, computer wins
+    if (you == 's' && computer == 'p')
+        return 0;
+    // If user's choice is paper and computer's choice is stone, user wins
+    else if (you == 'p' && computer == 's')
+        return 1;
+
+    // If user's choice is stone and computer's choice is scissor, user wins
+    if (you == 's' && computer == 'z')
+        return 1;
+    // If user's choice is scissor and computer's choice is stone, computer wins
+    else if (you == 'z' && computer == 's')
+        return 0;
+
+    // If user's choice is paper and computer's choice is scissor, computer wins
+    if (you == 'p' && computer == 'z')
+        return 0;
+    // If user's choice is scissor and computer's choice is paper, user wins
+    else if (you == 'z' && computer == 'p')
+        return 1;
+}
+
+// Main function
+int main()
+{
+    // Declare variables
+    int n;                // Stores the random number
+    char you, computer;   // Stores user's choice and computer's choice
+    int result;           // Stores the result of the game
+
+    // Seed the random number generator with current time
+    srand(time(NULL));
+
+    // Generate a random number between 0 and 99
+    n = rand() % 100;
+
+    // Assign 's', 'p', or 'z' to computer based on the random number
+    if (n < 33)
+        computer = 's';   // Computer chooses stone
+    else if (n < 66)
+        computer = 'p';   // Computer chooses paper
+    else
+        computer = 'z';   // Computer chooses scissor
+
+    // Prompt the user to enter their choice
+    printf("\n\n\n\n\t\t\t\tEnter s for STONE, p for PAPER and z for SCISSOR\n\t\t\t\t\t\t\t");
+    scanf(" %c", &you);   // Read user's choice
+
+    // Call the game function to determine the result
+    result = game(you, computer);
+
+    // Print the result of the game
+    if (result == -1) {
+        printf("\n\n\t\t\t\tGame Draw!\n");
+    } else if (result == 1) {
+        printf("\n\n\t\t\t\tWow! You have won the game!\n");
+    } else { 
+        printf("\n\n\t\t\t\tOh! You have lost the game!\n");
+    }
+
+    // Print the choices made by the user and the computer
+    printf("\t\t\t\tYou choose: %c and Computer choose: %c\n", you, computer);
+
+    return 0;   // Return 0 to indicate successful execution
+}
